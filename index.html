@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Avia schedule</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div id="app" class="main">
+        <div class="main__holder">
+            <div class="main__holder">
+                <button class="main__btn" @click="(showMode = 'departure') && loadSchedule()">Вылет</button>
+                <button class="main__btn" @click="(showMode = 'arrival') && loadSchedule()">Прилет</button>
+                <button class="main__btn" @click="(showMode = 'delay')  && loadSchedule()">Задержанные
+                    рейсы</button>
+            </div>
+            <input type="text" class="main__search" placeholder="Board Number" v-model="search">
+        </div>
+        <table class="main__table" v-if="schedule != ''">
+            <thead class="main__table-head">
+                <tr class="main__table-row">
+                    <th>From</th>
+                    <th>Departed at</th>
+                    <th>To</th>
+                    <th>Arrived at</th>
+                    <th>Board Number</th>
+                </tr>
+            </thead>
+            <tbody class="main__table-body">
+                <tr v-if="showMode === 'departure'" v-for="s in schedule">
+                    <td>{{ s.mar1.city }} {{ s.mar1.iata }}</td>
+                    <td>{{ s.t_otpr || s.t_st }}</td>
+                    <td>{{ s.mar2.city }} {{ s.mar2.iata }}</td>
+                    <td>{{ s.t_prb || s.t_st_mar || 'Уточняется' }}</td>
+                    <td>{{ s.flt }}</td>
+                </tr>
+                <tr v-if="showMode === 'arrival'" v-for="s in schedule">
+                    <td>{{ s.mar1.city }} {{ s.mar1.iata }}</td>
+                    <td>{{ s.t_otpr || s.t_st }}</td>
+                    <td>{{ s.mar2.city }} {{ s.mar2.iata }}</td>
+                    <td>{{ s.t_prb || s.t_st_mar || 'Уточняется' }}</td>
+                    <td>{{ s.flt }}</td>
+                </tr>
+                <tr v-if="showMode === 'delay'" v-for="d in delayList">
+                    <td>{{ d.mar1.city }} {{ d.mar1.iata }}</td>
+                    <td>{{ d.t_otpr || d.t_st }}</td>
+                    <td>{{ d.mar2.city }} {{ d.mar2.iata }}</td>
+                    <td>{{ d.t_prb || d.t_st_mar || 'Уточняется' }}</td>
+                    <td>{{ d.flt }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else>
+            Загрузка данных..
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>
