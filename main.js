@@ -10,7 +10,7 @@ var app = new Vue({
 		endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 	},
 	methods: {
-		loadSchedule: function() {
+		loadSchedule: function () {
 			var self = this;
 			if (self.showMode === "departure") {
 				self.direction = "departure";
@@ -30,22 +30,22 @@ var app = new Vue({
 						locale: "ru"
 					}
 				})
-				.then(function(response) {
+				.then(function (response) {
 					self.schedule = [];
 					self.schedule = response.data.items;
-					self.delayList = self.schedule.filter(function(s) {
+					self.delayList = self.schedule.filter(function (s) {
 						return s.t_otpr > s.t_st;
 					});
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
-		editDate: function(date) {
+		editDate: function (date) {
 			date.toLocaleString("ru", self.options);
 		}
 	},
-	created: function() {
+	created: function () {
 		var self = this;
 		self.loadSchedule();
 	},
@@ -57,7 +57,7 @@ var app = new Vue({
 			if (this.search === "") {
 				return filterObj;
 			}
-			return filterObj.filter(function(item) {
+			return filterObj.filter(function (item) {
 				return item.flt
 					.toLowerCase()
 					.includes(self.search.toLowerCase());
