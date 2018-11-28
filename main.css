@@ -29,16 +29,18 @@
 	line-height: 1.4em;
 	border-radius: 4px;
 	text-transform: uppercase;
+	outline: none;
 }
 
 .main__btn:hover {
 	background-color: #ebebeb;
+	box-shadow: 1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
 .main__btn--active {
 	background-color: beige;
 	border-width: medium;
-	border: 1px solid #444;
+	border: 1px solid rgb(146, 135, 135);
 }
 
 .main__search {
